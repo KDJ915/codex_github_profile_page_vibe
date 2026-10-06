@@ -31,24 +31,23 @@ python -m http.server 8000
 
 브라우저에서 `http://localhost:8000`을 엽니다. 종료는 터미널에서 `Ctrl+C`를 누릅니다.
 
-## GitHub 연결 및 Pages 배포
+## GitHub Actions 자동 배포
 
-1. GitHub에서 비어 있는 공개 저장소를 만듭니다. 계정 대표 사이트라면 `사용자명.github.io`, 프로젝트 사이트라면 원하는 저장소 이름을 사용합니다.
-2. 로컬 프로젝트 폴더에서 다음 명령을 실행합니다. 마지막 원격 주소는 만든 저장소의 실제 주소로 바꾸세요.
+저장소: https://github.com/KDJ915/codex_github_profile_page_vibe
+
+사이트: https://kdj915.github.io/codex_github_profile_page_vibe/
+
+`.github/workflows/deploy-pages.yml`이 `main`에 push할 때마다 사이트를 GitHub Pages에 배포합니다. 수정 후 다음 명령을 실행하세요.
 
 ```powershell
-git init -b main
-git add index.html styles.css script.js README.md .nojekyll
-git commit -m "Create developer portfolio"
-git remote add origin https://github.com/USERNAME/REPOSITORY.git
-git push -u origin main
+git add index.html styles.css script.js
+git commit -m "Update portfolio"
+git push origin main
 ```
 
-3. 저장소의 **Settings → Pages → Build and deployment**에서 **Source: Deploy from a branch**, **Branch: main**, **Folder: / (root)**를 선택하고 저장합니다.
-4. 배포가 끝나면 Pages 설정에 표시되는 주소로 접속합니다. 대표 사이트는 `https://USERNAME.github.io/`, 프로젝트 사이트는 `https://USERNAME.github.io/REPOSITORY/`입니다.
-5. 수정한 파일을 커밋하고 `main`에 푸시하면 다시 배포됩니다.
+배포 상태는 저장소의 **Actions → Deploy to GitHub Pages**에서 확인합니다. **Run workflow**로 수동 재배포할 수도 있습니다. Pages 설정의 **Source**는 **GitHub Actions**를 사용합니다.
 
-`.nojekyll`은 정적 파일을 그대로 제공하기 위한 파일입니다. 프레임워크 빌드나 별도의 Actions 워크플로는 필요하지 않습니다. 저장소가 이미 연결되어 있다면 초기화·원격 추가 단계는 생략하세요.
+워크플로는 `index.html`, `styles.css`, `script.js`, `.nojekyll`과 `assets/` 폴더(있는 경우)를 배포합니다. 새 이미지 파일은 `assets/`에 넣고 커밋하세요. 별도의 빌드 과정이나 배포용 secret은 필요하지 않습니다.
 
 공식 안내: [GitHub Pages 게시 소스 설정](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site)
 
